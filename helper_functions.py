@@ -53,6 +53,33 @@ del test_df_row, test_model_dict, pd
 
 def choose(dict):
     """
+    This function is very important in the theory.
+    This is important because when given a distribution of options, and you're trying to guess
+    the correct one, your best strategy is always to pick the one with highest probability.
+
+    It's also important because when predicting a binary variable (or any categorical variable, for that matter),
+    each time you make an entropy-reducing split, it does not necessarily mean that either side of the split needs to have a different guess.
+    For example, let's say you have the following points:
+    (0,0)
+    (1,0)
+    (2,0)
+    (3,1)
+    (4,0)
+    (5,0)
+    Your initial prediction is just to guess zeros, and your entropy is -5/6 * log2(5/6) - 1/6 * log2(1/6) = 0.6500
+    And then the entropy-reducing split would be at 2.5, so you'd have: 
+    (0,0)
+    (1,0)
+    (2,0)
+    -------
+    (3,1)
+    (4,0)
+    (5,0)
+    and on either side of the split, you'd still predict 0 as your best guess. Your new entropy is:
+    1/2 * ( 0 ) + 1/2 * ( -1/3 * log2(1/3) - 2/3 * log2(2/3) ) = 0.4591
+    Thus, entropy has been reduced, but you still make the same predictions -- the benefit is that you're more confident about the guess.
+
+
     I found this implementation here: https://stackoverflow.com/questions/268272/getting-key-with-maximum-value-in-dictionary
     """
     return max(dict, key=dict.get)
